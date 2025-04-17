@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+const API_URL = import.meta.env.VITE_API_URL || " https://gwayni.github.io/todo_fastapi/";
 
 export const getTodos = async (completed) => {
   let url = `${API_URL}/todos`;
