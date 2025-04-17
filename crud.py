@@ -1,11 +1,8 @@
 from sqlalchemy.orm import Session
-from backend import models, schemas
+from . import models, schemas  # <- Absolute import
 
-def create_todo(db: Session, todo: schemas.TodoCreate):  # Updated to match class name
-    db_todo = models.Todo(
-        title=todo.title,
-        completed=False  # Default value
-    )
+def create_todo(db: Session, todo: schemas.TodoCreate):
+    db_todo = models.Todo(title=todo.title, completed=False)
     db.add(db_todo)
     db.commit()
     db.refresh(db_todo)
