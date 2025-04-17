@@ -6,9 +6,9 @@ from backend.database import Base, engine
 app = FastAPI()
 
 origins = [
-    "http://localhost:5173",  # Vite default dev server
-    "http://localhost:5173/todoappreact-django",
-    # Add your deployed frontend URL here later (if needed)
+    "http://localhost:5173/todoappreact-django",  # Vite default dev server
+    "https://gwayni.github.io/todo_fastapi/",
+    # Add your deployed frontend URL
 ]
 
 app.add_middleware(
