@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import todo  # or from backend.routers import todo if outside backend
+from routers import todo  
 from database import Base, engine
 
 app = FastAPI()
