@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import todo
-from app.database import Base, engine
+from backend.routers import todo
+from backend.database import Base, engine
 
 app = FastAPI()
 
@@ -21,4 +21,4 @@ app.add_middleware(
 
 Base.metadata.create_all(bind=engine)
 
-app.include_router(todo.router, prefix="/todos", tags=["ToDos"])
+backend.include_router(todo.router, prefix="/todos", tags=["ToDos"])
