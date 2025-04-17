@@ -1,7 +1,12 @@
+# routers/todo.py
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from . import schemas, crud
-from database import SessionLocal
+
+# Use relative imports for crud and schemas
+from .. import schemas, crud          # <- Relative import
+from ..database import SessionLocal   # <- Relative import
+
 
 router = APIRouter()
 
