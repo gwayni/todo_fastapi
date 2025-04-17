@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || " https://gwayni.github.io/todo_fastapi/";
+const API_URL = import.meta.env.VITE_API_URL || "https://todo-fastapi-fw5b.onrender.com";
 
 export const getTodos = async (completed) => {
   let url = `${API_URL}/todos`;
