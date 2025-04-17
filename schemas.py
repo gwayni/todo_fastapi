@@ -1,17 +1,17 @@
 from pydantic import BaseModel
+from typing import Optional
 
-class ToDoBase(BaseModel):
+class TodoCreate(BaseModel):
     title: str
-    completed: bool = False
 
-class ToDoCreate(ToDoBase):
-    pass
+class TodoUpdate(BaseModel):
+    title: Optional[str] = None
+    completed: Optional[bool] = None
 
-class ToDoUpdate(ToDoBase):
-    pass
-
-class ToDoResponse(ToDoBase):
+class Todo(BaseModel):
     id: int
+    title: str
+    completed: bool
 
     class Config:
-        orm_mode = True
+        orm_mode = True 
