@@ -1,9 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
-import schemas
-import crud
-from database import SessionLocal
+from backend import schemas, crud
+from backend.database import SessionLocal
 
 router = APIRouter()
 
@@ -14,23 +12,23 @@ def get_db():
     finally:
         db.close()
 
-@router.get("/", response_model=list[schemas.ToDoResponse])
+@router.get("/", response_model=list[schemas.Todo])  # Updated to match class name
 def read_todos(db: Session = Depends(get_db)):
     return crud.get_all_todos(db)
 
-@router.get("/{todo_id}", response_model=schemas.ToDoResponse)
+@router.get("/{todo_id}", response_model=schemas.Todo)  # Updated to match class name
 def read_todo(todo_id: int, db: Session = Depends(get_db)):
     todo = crud.get_todo_by_id(db, todo_id)
     if not todo:
         raise HTTPException(status_code=404, detail="To-Do not found")
     return todo
 
-@router.post("/", response_model=schemas.ToDoResponse)
-def create_todo(todo: schemas.ToDoCreate, db: Session = Depends(get_db)):
+@router.post("/", response_model=schemas.Todo)  # Updated to match class name
+def create_todo(todo: schemas.TodoCreate, db: Session = Depends(get_db)):
     return crud.create_todo(db, todo)
 
-@router.put("/{todo_id}", response_model=schemas.ToDoResponse)
-def update_todo(todo_id: int, updated: schemas.ToDoUpdate, db: Session = Depends(get_db)):
+@router.put("/{todo_id}", response_model=schemas.Todo)  # Updated to match class name
+def update_todo(todo_id: int, updated: schemas.TodoUpdate, db: Session = Depends(get_db)):
     todo = crud.update_todo(db, todo_id, updated)
     if not todo:
         raise HTTPException(status_code=404, detail="To-Do not found")
@@ -43,6 +41,6 @@ def delete_todo(todo_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="To-Do not found")
     return {"message": "Deleted successfully"}
 
-@router.get("/filter/status/{status}", response_model=list[schemas.ToDoResponse])
+@router.get("/filter/status/{status}", response_model=list[schemas.Todo])  # Updated to match class name
 def filter_todos(status: bool, db: Session = Depends(get_db)):
     return crud.filter_todos_by_status(db, status)
