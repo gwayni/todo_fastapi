@@ -6,15 +6,16 @@ from database import Base, engine
 app = FastAPI()
 
 origins = [
-    "https://gwayni.github.io",  
+    "http://localhost:5173",  
+    "https://gwayni.github.io", 
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  
+    allow_headers=["*"],  
 )
 
 Base.metadata.create_all(bind=engine)
