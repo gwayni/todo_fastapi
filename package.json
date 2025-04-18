@@ -1,6 +1,6 @@
 {
   "name": "todo-app",
-  "homepage": "https://gwayni.github.io/todo_fastapi/",
+  "homepage": "https://github.com/gwayni/todo_fastapi/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
