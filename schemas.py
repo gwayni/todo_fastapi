@@ -8,12 +8,10 @@ class TodoUpdate(BaseModel):
     title: Optional[str] = None
     completed: Optional[bool] = None
 
-class ToDoResponse(BaseModel):
+class Todo(BaseModel):
     id: int
     title: str
     completed: bool
 
     class Config:
-        model_config = {  
-            "from_attributes": True
-        }
+        orm_mode = True 
