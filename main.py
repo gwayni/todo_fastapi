@@ -7,7 +7,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "https://gwayni.github.io"
+    "https://gwayni.github.io",  # path isn't needed here
 ]
 
 app.add_middleware(
