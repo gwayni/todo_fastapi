@@ -7,12 +7,12 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "https://gwayni.github.io/todo_fastapi/"
+    "https://gwayni.github.io"
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://gwayni.github.io"],  
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
