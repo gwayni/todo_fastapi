@@ -7,7 +7,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "https://gwayni.github.io",  # path isn't needed here
+    "https://gwayni.github.io",  
 ]
 
 app.add_middleware(
@@ -20,4 +20,4 @@ app.add_middleware(
 
 Base.metadata.create_all(bind=engine)
 
-app.include_router(todo.router, prefix="/todos", tags=["ToDos"])
+app.include_router(todo.router, prefix="/todos/", tags=["ToDos"])
