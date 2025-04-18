@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
-from . import models, schemas  # <- Absolute import
+import models
+import schemas
 
 def create_todo(db: Session, todo: schemas.TodoCreate):
     db_todo = models.Todo(title=todo.title, completed=False)
