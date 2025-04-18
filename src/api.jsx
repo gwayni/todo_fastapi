@@ -1,35 +1,78 @@
 const API_URL = import.meta.env.VITE_API_URL || "https://todo-fastapi-fw5b.onrender.com";
 
+// Fetch all todos with an optional filter for completion status
 export const getTodos = async (completed) => {
   let url = `${API_URL}/todos`;
   if (completed !== undefined) url += `?completed=${completed}`;
-  const response = await fetch(url);
-  if (!response.ok) throw new Error("Failed to fetch todos");
-  return response.json();
+  
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to fetch todos: ${errorText}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching todos:", error);
+    throw error; // Re-throw or handle accordingly
+  }
 };
 
+// Create a new todo
 export const createTodo = async (title) => {
-  const response = await fetch(`${API_URL}/todos`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title }),
-  });
-  if (!response.ok) throw new Error("Failed to create todo");
-  return response.json();
+  try {
+    const response = await fetch(`${API_URL}/todos`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to create todo: ${errorText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error in createTodo:", error);
+    throw error; // Re-throw or handle accordingly
+  }
 };
 
+// Update an existing todo
 export const updateTodo = async (id, updates) => {
-  const response = await fetch(`${API_URL}/todos/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(updates),
-  });
-  if (!response.ok) throw new Error("Failed to update todo");
-  return response.json();
+  try {
+    const response = await fetch(`${API_URL}/todos/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updates),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to update todo: ${errorText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error updating todo:", error);
+    throw error; // Re-throw or handle accordingly
+  }
 };
 
+// Delete a todo
 export const deleteTodo = async (id) => {
-  const response = await fetch(`${API_URL}/todos/${id}`, { method: "DELETE" });
-  if (!response.ok) throw new Error("Failed to delete todo");
-  return response.json();
+  try {
+    const response = await fetch(`${API_URL}/todos/${id}`, { method: "DELETE" });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to delete todo: ${errorText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error deleting todo:", error);
+    throw error; // Re-throw or handle accordingly
+  }
 };
