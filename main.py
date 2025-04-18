@@ -12,15 +12,15 @@ app = FastAPI()
 
 # CORS settings
 origins = [
-    "https://gwayni.github.io",  # Add your frontend domain here
+    "https://gwayni.github.io",  # Make sure your frontend domain is listed
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=origins,  # Allow frontend origin
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, PUT, DELETE)
+    allow_headers=["*"],  # Allow all headers
 )
 
 # Create the database tables based on the models
