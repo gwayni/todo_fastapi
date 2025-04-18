@@ -4,7 +4,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 import schemas
 import crud
-  
+from database import SessionLocal
+
 router = APIRouter()
 
 def get_db():
