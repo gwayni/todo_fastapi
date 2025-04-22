@@ -7,7 +7,7 @@ import schemas
 from database import SessionLocal, engine
 
 # Fetch the PostgreSQL connection URL from environment variables
-DATABASE_URL = os.getenv("DATABASE_URL")
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
