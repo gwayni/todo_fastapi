@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 import models
 import schemas
-from typing import Optional  # Ensure this is properly imported
+from typing import Union  # Change Optional to Union
 
 # Create a new todo
 def create_todo(db: Session, todo: schemas.TodoCreate):
@@ -42,7 +42,7 @@ def delete_todo(db: Session, todo_id: int):
     return False
 
 # Filter todos by completion status (if status is provided)
-def filter_todos_by_status(db: Session, status: Optional[bool] = None):
+def filter_todos_by_status(db: Session, status: Union[bool, None] = None):  # Use Union instead of Optional
     if status is None:
         return db.query(models.Todo).all()  # Return all todos if no filter
     return db.query(models.Todo).filter(models.Todo.completed == status).all()
