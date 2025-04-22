@@ -1,12 +1,12 @@
+import React from "react";
+
 function ThemeToggle({ theme, setTheme }) {
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
   return (
-    <button onClick={toggleTheme}>
-      {theme === "light" ? "Switch to Dark Mode" : "Switch to Light Mode"}
-    </button>
+    <button className="theme-toggle" onClick={toggleTheme}>
+  Switch to {theme === "light" ? "Dark" : "Light"} Mode
+</button>
   );
 }
 
