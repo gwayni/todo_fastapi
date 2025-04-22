@@ -35,5 +35,7 @@ def delete_todo(db: Session, todo_id: int):
         return True
     return False
 
-def filter_todos_by_status(db: Session, status: bool):
+def filter_todos_by_status(db: Session, status: Optional[bool] = None):
+    if status is None:
+        return db.query(models.Todo).all()  # Return all todos if no filter
     return db.query(models.Todo).filter(models.Todo.completed == status).all()
