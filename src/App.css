@@ -7,13 +7,12 @@ body {
 }
 
 /* Light Theme */
-body.light {
+html.light body {
   background-color: #f4f0fa;
   color: #2c1e3d;
 }
 
-/* Dark Theme */
-body.dark {
+html.dark body {
   background-color: #1e1b29;
   color: #e8dffc;
 }

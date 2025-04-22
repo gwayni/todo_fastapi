@@ -13,10 +13,16 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    document.documentElement.className = theme;
+    document.body.className = theme;
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  useEffect(() => {
+    console.log("Setting theme:", theme);
+    document.documentElement.className = theme;
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+  
   useEffect(() => {
     const fetchTodos = async () => {
       setIsLoading(true);
