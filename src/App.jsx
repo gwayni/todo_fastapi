@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import TodoList from "./components/TodoList";
 import AddTodo from "./components/AddTodo";
 import FilterButtons from "./components/FilterButtons";
-// import ThemeToggle from "./components/ThemeToggle"; // optional
+import ThemeToggle from "./components/ThemeToggle"; // optional
 import { getTodos } from "./api";
 import "./App.css";
 
@@ -25,7 +25,7 @@ function App() {
         if (filter === "completed") completed = true;
         else if (filter === "pending") completed = false;
         else completed = undefined;
-        const data = await getTodos(completed);
+        const data = await getTodos(completed);  // Pass the filter
         setTodos(data);
       } catch (error) {
         console.error(error);
@@ -34,20 +34,14 @@ function App() {
       }
     };
     fetchTodos();
-  }, [filter]);
+  }, [filter]);  // Refetch todos whenever the filter changes
 
   return (
     <div className="app">
-      <button
-        onClick={() => setTheme((prev) => (prev === "light" ? "dark" : "light"))}
-        className="theme-toggle"
-      >
-        Switch to {theme === "light" ? "Dark" : "Light"} Mode
-      </button>
-
+      <ThemeToggle theme={theme} setTheme={setTheme} /> {/* Theme Toggle */}
       <h1>To-Do List</h1>
       <AddTodo onAdd={(newTodo) => setTodos([...todos, newTodo])} />
-      <FilterButtons setFilter={setFilter} />
+      <FilterButtons setFilter={setFilter} />  {/* Filter Buttons */}
 
       {isLoading ? (
         <p className="loading-text">Loading...</p>
