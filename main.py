@@ -1,8 +1,10 @@
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI, HTTPException
+from sqlalchemy.orm import Session
+from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
-from routers import todo
-from database import Base, engine
-import os
+import models
+import schemas
+from database import SessionLocal, engine
 
 # Fetch the PostgreSQL connection URL from environment variables
 DATABASE_URL = os.getenv("DATABASE_URL")
