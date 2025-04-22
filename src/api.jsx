@@ -1,6 +1,5 @@
 const API_URL = import.meta.env.VITE_API_URL || "https://todo-fastapi-fw5b.onrender.com";
 
-// ✅ Fetch all todos with an optional filter for completion status
 export const getTodos = async (completed) => {
   let url = `${API_URL}/todos`;
 
@@ -21,7 +20,6 @@ export const getTodos = async (completed) => {
   }
 };
 
-// ✅ Create a new todo
 export const createTodo = async (title) => {
   try {
     const response = await fetch(`${API_URL}/todos`, {
@@ -42,7 +40,6 @@ export const createTodo = async (title) => {
   }
 };
 
-// ✅ Update an existing todo
 export const updateTodo = async (id, updates) => {
   try {
     const response = await fetch(`${API_URL}/todos/${id}`, {
@@ -63,7 +60,6 @@ export const updateTodo = async (id, updates) => {
   }
 };
 
-// ✅ Delete a todo
 export const deleteTodo = async (id) => {
   try {
     const response = await fetch(`${API_URL}/todos/${id}`, {

@@ -9,9 +9,8 @@ function TodoItem({ todo, onUpdate, onDelete }) {
   const handleToggleComplete = async () => {
     setIsLoading(true);
     try {
-      // Toggle the completed status of the todo
       const data = await updateTodo(todo.id, { completed: !todo.completed });
-      onUpdate(data); // Update the todo in the parent component's state
+      onUpdate(data);
     } finally {
       setIsLoading(false);
     }
@@ -22,8 +21,8 @@ function TodoItem({ todo, onUpdate, onDelete }) {
       setIsLoading(true);
       try {
         const data = await updateTodo(todo.id, { title });
-        onUpdate(data); // Update the todo in the parent component's state
-        setIsEditing(false); // Exit editing mode
+        onUpdate(data);
+        setIsEditing(false);
       } finally {
         setIsLoading(false);
       }
@@ -33,8 +32,8 @@ function TodoItem({ todo, onUpdate, onDelete }) {
   const handleDelete = async () => {
     setIsLoading(true);
     try {
-      await deleteTodo(todo.id); // Delete the todo
-      onDelete(todo.id); // Remove it from the parent component's state
+      await deleteTodo(todo.id);
+      onDelete(todo.id);
     } finally {
       setIsLoading(false);
     }
@@ -42,33 +41,23 @@ function TodoItem({ todo, onUpdate, onDelete }) {
 
   return (
     <div className={`todo-item ${isLoading ? "loading" : ""}`}>
-      {/* Button for toggling the completion status */}
-      <button
-        id={`toggle-completion-${todo.id}`} // Unique ID for the button
-        name={`toggle-completion-${todo.id}`} // Unique name for the button
-        onClick={handleToggleComplete}
-        disabled={isLoading}
-      >
-        {todo.completed ? "Mark as Pending" : "Mark as Completed"}
-      </button>
-
-      {/* Edit mode or display mode for the title */}
-      {isEditing ? (
-        <input
-        id={`todo-title-${todo.id}`} // Unique ID per todo
-        name="todo-title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        onBlur={handleSave}
-        autoFocus
+      <input
+        type="checkbox"
+        checked={todo.completed}
+        onChange={handleToggleComplete}
         disabled={isLoading}
       />
-      
+      {isEditing ? (
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          onBlur={handleSave}
+          autoFocus
+          disabled={isLoading}
+        />
       ) : (
         <span onClick={() => setIsEditing(true)}>{todo.title}</span>
       )}
-
-      {/* Button for deleting the todo */}
       <button onClick={handleDelete} disabled={isLoading}>
         {isLoading ? "Deleting..." : "Delete"}
       </button>
