@@ -3,7 +3,7 @@ import TodoList from "./components/TodoList";
 import AddTodo from "./components/AddTodo";
 import FilterButtons from "./components/FilterButtons";
 import ThemeToggle from "./components/ThemeToggle"; // optional
-import { getTodos } from "./api";
+import { getTodos } from "./api";  // Assuming this fetches the todos
 import "./App.css";
 
 function App() {
@@ -12,11 +12,13 @@ function App() {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [isLoading, setIsLoading] = useState(false);
 
+  
   useEffect(() => {
     document.body.className = theme;
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  // Fetch todos based on filter
   useEffect(() => {
     const fetchTodos = async () => {
       setIsLoading(true);
@@ -33,7 +35,9 @@ function App() {
         setIsLoading(false);
       }
     };
-    
+    fetchTodos(); // Ensure we call the function
+  }, [filter]); // Trigger fetch when filter changes
+
   return (
     <div className="app">
       <ThemeToggle theme={theme} setTheme={setTheme} /> {/* Theme Toggle */}
