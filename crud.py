@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
 import models
 import schemas
+from typing import Optional
+
 
 def create_todo(db: Session, todo: schemas.TodoCreate):
     db_todo = models.Todo(title=todo.title, completed=False)
