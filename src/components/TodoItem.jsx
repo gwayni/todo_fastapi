@@ -55,12 +55,15 @@ function TodoItem({ todo, onUpdate, onDelete }) {
       {/* Edit mode or display mode for the title */}
       {isEditing ? (
         <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          onBlur={handleSave} // Save the title when the input loses focus
-          autoFocus
-          disabled={isLoading} // Disable while loading
-        />
+        id={`todo-title-${todo.id}`} // Unique ID per todo
+        name="todo-title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        onBlur={handleSave}
+        autoFocus
+        disabled={isLoading}
+      />
+      
       ) : (
         <span onClick={() => setIsEditing(true)}>{todo.title}</span>
       )}

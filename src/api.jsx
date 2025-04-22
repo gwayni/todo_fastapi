@@ -1,10 +1,9 @@
 const API_URL = import.meta.env.VITE_API_URL || "https://todo-fastapi-fw5b.onrender.com";
 
-// Fetch all todos with an optional filter for completion status
+// ✅ Fetch all todos with an optional filter for completion status
 export const getTodos = async (completed) => {
-  let url = `${API_URL}/todos`;  // Base URL
+  let url = `${API_URL}/todos`;
 
-  // Add the query parameter for completed if it's not undefined
   if (completed !== undefined) {
     url += `?completed=${completed}`;
   }
@@ -15,14 +14,14 @@ export const getTodos = async (completed) => {
       const errorText = await response.text();
       throw new Error(`Failed to fetch todos: ${errorText}`);
     }
-    return await response.json();  // Return the JSON data if successful
+    return await response.json();
   } catch (error) {
     console.error("Error fetching todos:", error);
-    throw error;  // Re-throw or handle accordingly
+    throw error;
   }
 };
 
-// Create a new todo
+// ✅ Create a new todo
 export const createTodo = async (title) => {
   try {
     const response = await fetch(`${API_URL}/todos`, {
@@ -39,17 +38,17 @@ export const createTodo = async (title) => {
     return await response.json();
   } catch (error) {
     console.error("Error in createTodo:", error);
-    throw error; // Re-throw or handle accordingly
+    throw error;
   }
 };
 
-// Update an existing todo (specifically for toggling completion)
+// ✅ Update an existing todo
 export const updateTodo = async (id, updates) => {
   try {
     const response = await fetch(`${API_URL}/todos/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updates), // Send the completed status change
+      body: JSON.stringify(updates),
     });
 
     if (!response.ok) {
@@ -57,17 +56,19 @@ export const updateTodo = async (id, updates) => {
       throw new Error(`Failed to update todo: ${errorText}`);
     }
 
-    return await response.json();  // Return updated todo
+    return await response.json();
   } catch (error) {
     console.error("Error updating todo:", error);
-    throw error;  // Re-throw or handle accordingly
+    throw error;
   }
 };
 
-// Delete a todo
+// ✅ Delete a todo
 export const deleteTodo = async (id) => {
   try {
-    const response = await fetch(`${API_URL}/todos/${id}`, { method: "DELETE" });
+    const response = await fetch(`${API_URL}/todos/${id}`, {
+      method: "DELETE",
+    });
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -77,29 +78,6 @@ export const deleteTodo = async (id) => {
     return await response.json();
   } catch (error) {
     console.error("Error deleting todo:", error);
-    throw error; // Re-throw or handle accordingly
+    throw error;
   }
 };
-
-// In api.jsx
-export const updateTodo = async (id, updates) => {
-  try {
-    const response = await fetch(`${API_URL}/todos/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updates), // Send the completed status change
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Failed to update todo: ${errorText}`);
-    }
-
-    return await response.json();  // Return updated todo
-  } catch (error) {
-    console.error("Error updating todo:", error);
-    throw error;  // Re-throw or handle accordingly
-  }
-};
-
-``
