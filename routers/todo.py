@@ -2,9 +2,11 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 import schemas, crud
 from database import SessionLocal
+from typing import Optional  # Add this import
 
 router = APIRouter()
 
+# Dependency to get DB session
 def get_db():
     db = SessionLocal()
     try:
