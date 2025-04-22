@@ -80,4 +80,26 @@ export const deleteTodo = async (id) => {
     throw error; // Re-throw or handle accordingly
   }
 };
+
+// In api.jsx
+export const updateTodo = async (id, updates) => {
+  try {
+    const response = await fetch(`${API_URL}/todos/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updates), // Send the completed status change
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to update todo: ${errorText}`);
+    }
+
+    return await response.json();  // Return updated todo
+  } catch (error) {
+    console.error("Error updating todo:", error);
+    throw error;  // Re-throw or handle accordingly
+  }
+};
+
 ``
