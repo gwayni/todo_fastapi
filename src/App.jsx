@@ -24,8 +24,8 @@ function App() {
         let completed;
         if (filter === "completed") completed = true;
         else if (filter === "pending") completed = false;
-        else completed = undefined;
-        const data = await getTodos(completed);  // Pass the filter
+        else completed = undefined; // Default to undefined to get all todos
+        const data = await getTodos(completed); // Send completed as query param
         setTodos(data);
       } catch (error) {
         console.error(error);
@@ -33,9 +33,7 @@ function App() {
         setIsLoading(false);
       }
     };
-    fetchTodos();
-  }, [filter]);  // Refetch todos whenever the filter changes
-
+    
   return (
     <div className="app">
       <ThemeToggle theme={theme} setTheme={setTheme} /> {/* Theme Toggle */}
