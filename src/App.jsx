@@ -3,7 +3,7 @@ import TodoList from "./components/TodoList";
 import AddTodo from "./components/AddTodo";
 import FilterButtons from "./components/FilterButtons";
 import ThemeToggle from "./components/ThemeToggle"; // optional
-import { getTodos } from "./api";  // Assuming this fetches the todos
+import { getTodos, updateTodo } from "./api";  // Assuming this fetches the todos
 import "./App.css";
 
 function App() {
@@ -12,7 +12,6 @@ function App() {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [isLoading, setIsLoading] = useState(false);
 
-  
   useEffect(() => {
     document.body.className = theme;
     localStorage.setItem("theme", theme);
@@ -38,6 +37,18 @@ function App() {
     fetchTodos(); // Ensure we call the function
   }, [filter]); // Trigger fetch when filter changes
 
+  // Toggle completion status of a todo
+  const toggleCompletionStatus = async (todoId, currentStatus) => {
+    const newStatus = !currentStatus; // Toggle between completed and pending
+    try {
+      const updatedTodo = await updateTodo(todoId, { completed: newStatus });
+      // Update state immediately with the updated todo
+      setTodos(todos.map(todo => todo.id === todoId ? updatedTodo : todo));
+    } catch (error) {
+      console.error("Error while updating todo status", error);
+    }
+  };
+
   return (
     <div className="app">
       <ThemeToggle theme={theme} setTheme={setTheme} /> {/* Theme Toggle */}
@@ -54,6 +65,7 @@ function App() {
             setTodos(todos.map((t) => (t.id === updatedTodo.id ? updatedTodo : t)))
           }
           onDelete={(id) => setTodos(todos.filter((t) => t.id !== id))}
+          onToggleCompletion={toggleCompletionStatus} // Added toggle function for completion
         />
       )}
     </div>
